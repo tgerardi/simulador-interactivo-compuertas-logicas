@@ -1,0 +1,109 @@
+<template>
+    <div if:true={shouldLoad}>
+        <div class="slds-card" >
+            <div class="slds-page-header">
+                <div class="slds-page-header__row">
+                    <div class="slds-page-header__col-title">
+                        <div class="slds-media">
+                            <div class="slds-media__figure">
+                                <lightning-icon icon-name="standard:file" alternative-text="Administrative" title="medium"></lightning-icon>
+                            </div>
+                            <div class="slds-media__body">
+                                <div class="slds-page-header__name">
+                                    <div class="slds-page-header__name-title">
+                                        <h1>
+                                            <span class="slds-page-header__title slds-truncate" title="Alertas Administrativas">Alertas Administrativas</span>
+                                        </h1>
+                                    </div>
+                                </div>
+                                <p class="slds-page-header__name-meta">Última Actulización • <lightning-formatted-date-time value={lastUpdate}></lightning-formatted-date-time></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-page-header__col-actions">
+                        <div class="slds-page-header__controls">
+                        <div class="slds-page-header__control">
+                            <ul class="slds-button-group-list">
+                            <li>
+                                <lightning-button-icon icon-name="utility:refresh" variant="border-filled" alternative-text="Refresh" title="Refresh" onclick={updateAlerts}></lightning-button-icon>
+                            </li>
+                            </ul>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <template if:true={loaded}>
+                    <template for:each={alerts} for:item="w_record">
+                        <template if:true={w_record.wrong}>
+                            <div class="slds-m-vertical_x-small" key={w_record.title}>
+                                <section class="slds-notification slds-m-horizontal_x-small" role="dialog" aria-labelledby="noti-86" aria-describedby="dialog-body-id-85">
+                                    <div class="slds-notification__body" id="dialog-body-id-85">
+                                        <div class="slds-notification__target slds-media" >
+                                            <span class="slds-icon_container slds-icon-standard-event slds-media__figure" title="event">
+                                                <lightning-icon icon-name="standard:first_non_empty" alternative-text="Administrative" title="medium"></lightning-icon>
+                                                <span class="slds-assistive-text">Description of icon when needed</span>
+                                            </span>
+                                            <div class="slds-media__body">
+                                                <h2 class="slds-text-heading_small slds-m-bottom_xx-small" id="noti-86">
+                                                    <b>{w_record.title}</b>
+                                                </h2>
+                                                <p>{w_record.wrongMessage}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </template>
+                        <template if:true={w_record.success}>
+                            <div class="slds-m-vertical_x-small" key={w_record.title}>
+                                <section class="slds-notification slds-m-horizontal_x-small" role="dialog" aria-labelledby="noti-86" aria-describedby="dialog-body-id-85">
+                                    <div class="slds-notification__body" id="dialog-body-id-86">
+                                        <div class="slds-notification__target slds-media" >
+                                            <span class="slds-icon_container slds-icon-standard-event slds-media__figure" title="event">
+                                                <lightning-icon icon-name="standard:task2" alternative-text="Administrative" title="medium"></lightning-icon>
+                                                <span class="slds-assistive-text">Description of icon when needed</span>
+                                            </span>
+                                            <div class="slds-media__body">
+                                                <h2 class="slds-text-heading_small slds-m-bottom_xx-small" id="noti-87">
+                                                    <b>{w_record.title}</b>
+                                                </h2>
+                                                <p>{w_record.successMessage}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </template>
+                        <template if:true={w_record.error}>
+                            <div class="slds-m-vertical_x-small" key={w_record.title}>
+                                <section class="slds-notification slds-m-horizontal_x-small" role="dialog" aria-labelledby="noti-86" aria-describedby="dialog-body-id-85">
+                                    <div class="slds-notification__body" id="dialog-body-id-87">
+                                        <div class="slds-notification__target slds-media" >
+                                            <span class="slds-icon_container slds-icon-standard-event slds-media__figure" title="event">
+                                                <!-- SIN-233 | 17-10-2023 | Se comenta el ícono de error.
+                                                <lightning-icon icon-name="standard:unmatched" alternative-text="Administrative" title="medium"></lightning-icon>
+                                                <span class="slds-assistive-text">Description of icon when needed</span>
+                                                -->
+                                            </span>
+                                            <div class="slds-media__body">
+                                                <h2 class="slds-text-heading_small slds-m-bottom_xx-small" id="noti-88">
+                                                    <b>{w_record.title}</b>
+                                                </h2>
+                                                <p>{w_record.errorMessage}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </template>
+                    </template>
+                </template>
+                <template if:false={loaded}>
+                    <lightning-spinner alternative-text="Loading" size="x-small"></lightning-spinner>
+                </template>
+            </div>
+        </div>
+    </div>
+</template>

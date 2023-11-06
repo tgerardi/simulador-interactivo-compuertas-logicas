@@ -1,0 +1,33 @@
+.custom_fixed {
+    position: fixed;
+    /* bottom: 0; */
+    right: 0;
+    width: 100%;
+    text-align: end;
+    padding: 7px;
+    padding-right: 20px;
+    background-color: rgb(255, 255, 255);
+    border-top: 1px solid #bababa;
+    box-shadow: 0px 0px 1em #9c9c9c;
+    z-index: 1;
+    margin-top: -54px;
+  }
+
+.custom_spinner{
+    position: absolute;
+    text-align: center;
+    margin-top: 17%;
+    margin-left: 51%;
+}
+
+.custom_textLoad{
+    color: white;
+    position: fixed;
+    padding-top: 40px;
+    margin-left: -124px;
+    text-shadow: 0.5px 1px #333333; 
+}
+
+.custom_boxes{
+    margin-top: 40px;
+}
