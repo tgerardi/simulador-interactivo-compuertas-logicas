@@ -1,57 +1,41 @@
 
-function start() {
-    welcome();
-    inputs();
-}
+function start() {    
+    let condToStart = true;
+    while (condToStart) {
+        condToStart = confirm("Input values for P and Q to generate the truth tables for each logic gate.\nEnter '1' for true or '0' for false for each input.\nPress the cancel button to exit.");
+        if(!condToStart) break;
 
-function welcome() {
-    alert("Input values for P and Q to generate the truth tables.");
-    alert("Enter 'T' for true or 'F' for false in your input.");
-}
+        let vp = prompt("P:").trim().toUpperCase() == "1" ? true : false;
+        let vq = prompt("Q:").trim().toUpperCase() == "1" ? true : false;
 
-function inputs() {
-    let vp = prompt("P:");
-    let vq = prompt("Q:");
-}
-
-function AND_LogicalTable(p, q) {
-    switch(p) {
-        
+        alert(NOT(vp) + "\n" + NOT(vq) + "\n" + AND(vp, vq) + "\n" + OR(vp, vq) + "\n" + NAND(vp, vq) + "\n" + NOR(vp, vq) + "\n" + XOR(vp, vq) + "\n" + XNOR(vp, vq));
     }
 }
 
-function OR_LogicalTable(p, q) {
-    switch(p) {
-        
-    }
+function AND(p, q) {
+    return `AND: ${p && q ? 1 : 0}`;
 }
 
-function XOR_LogicalTable(p, q) {
-    switch(p) {
-        
-    }
+function OR(p, q) {
+    return `OR: ${p || q ? 1 : 0}`;
 }
 
-function XNOR_LogicalTable(p, q) {
-    switch(p) {
-        
-    }
+function XOR(p, q) {
+    return `XOR: ${p !== q ? 1 : 0}`;
 }
 
-function IFTHEN_LogicalTable(p, q) {
-    switch(p) {
-        
-    }
+function XNOR(p, q) {
+    return `XNOR: ${p === q ? 1 : 0}`;
 }
 
-function THENIF_LogicalTable(p, q) {
-    switch(p) {
-        
-    }
+function NOR(p, q) {
+    return `NOR: ${!(p || q) ? 1 : 0}`;
 }
 
-function IFANDONLYIF_LogicalTable(p, q) {
-    switch(p) {
-        
-    }
+function NAND(p, q) {
+    return `NAND: ${!(p && q) ? 1 : 0}`;
+}
+
+function NOT(p) {
+    return `NOT: ${!p ? 1 : 0}`;
 }
