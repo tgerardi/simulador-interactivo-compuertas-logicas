@@ -1,0 +1,6 @@
+.slds-notification{
+    width: unset;
+}
+.slds-notification__target:hover, .slds-notification__target:focus {
+    background-color: rgb(243, 243, 243);
+}

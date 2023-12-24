@@ -1,0 +1,12 @@
+<!-- alertPanelAccount.html -->
+<template>
+    <div>
+        <p>{message}</p>
+        <ul>
+            <template for:each={alerts} for:item="alert">
+                <li key={alert.Id}>{alert.Titulo__c}</li>
+            </template>
+        </ul>
+        <lightning-button label="Actualizar Alertas" onclick={updateAlerts}></lightning-button>
+    </div>
+</template>
