@@ -1,5 +1,0 @@
-<design:component>
-	<sfdc:objects>
-        <sfdc:object>Enlatado__c</sfdc:object>
-    </sfdc:objects>
-</design:component>
