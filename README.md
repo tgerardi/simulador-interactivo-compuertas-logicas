@@ -4,7 +4,7 @@
 > El proyecto final del curso de JavaScript de Coderhouse va a ser un desarrollo de una aplicación web en la que se pueda crear circuitos lógicos con las compuertas lógicas existes de acuerdo a una o varias E/S.
 > Este proyecto representa un desafío y una incursión a lo desconocido.
 
-**__ Técnologías usadas __** (por el momento)
+** __Técnologías usadas__ ** (por el momento)
 * JavaScript
 
 ## ** Primera entrega **
