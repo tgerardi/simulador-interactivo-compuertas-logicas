@@ -8,7 +8,7 @@ function start() {
         let vp = prompt("P:").trim().toUpperCase() == "1" ? true : false;
         let vq = prompt("Q:").trim().toUpperCase() == "1" ? true : false;
 
-        alert(NOT(vp) + "\n" + NOT(vq) + "\n" + AND(vp, vq) + "\n" + OR(vp, vq) + "\n" + NAND(vp, vq) + "\n" + NOR(vp, vq) + "\n" + XOR(vp, vq) + "\n" + XNOR(vp, vq));
+        alert("NOT P: " + NOT(vp) + "\n" + "NOT Q: " + NOT(vq) + "\n" + AND(vp, vq) + "\n" + OR(vp, vq) + "\n" + NAND(vp, vq) + "\n" + NOR(vp, vq) + "\n" + XOR(vp, vq) + "\n" + XNOR(vp, vq));
     }
 }
 
@@ -37,5 +37,5 @@ function NAND(p, q) {
 }
 
 function NOT(p) {
-    return `NOT: ${!p ? 1 : 0}`;
+    return `${!p ? 1 : 0}`;
 }
