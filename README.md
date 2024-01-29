@@ -4,8 +4,12 @@
 > El proyecto final del curso de JavaScript de Coderhouse va a ser un desarrollo de una aplicación web en la que se pueda crear circuitos lógicos con las compuertas lógicas existes de acuerdo a una o varias E/S.
 > Este proyecto representa un desafío y una incursión a lo desconocido.
 
-## Funcionalidades a desarrollar
+### Aclaraciones!
+> La parte HTML y CSS de este proyecto fue desarrollada por [Lubin Pappalardo](https://github.com/lubinpappalardo) en el proyecto [Digital Logic Simulator](https://github.com/lubinpappalardo/digital-logic-sim/tree/main). 
+> No se utilizó ningun Framework hasta el momento. 
+> Lo que se evalúa en este proyecto es el desarrollo que se hizo en JavaScript.
 
+## Funcionalidades a desarrollar
 * Arrastrado de componentes
 * Conexion de componentes
 * Vaciado de tablero
@@ -17,6 +21,7 @@
 * JavaScript
 * HTML
 * CSS
+* AJAX
 
 ## Fuentes de estudio
 - [Theory of Logic Gates](https://en.wikipedia.org/wiki/Logic_gate)

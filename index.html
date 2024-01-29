@@ -1,14 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Title and Meta -->
     <title>Simulador Compuertas Logicas</title>
-    <script src="scripts/components.js"></script>
-    <script src="main.js"></script>
+    <meta charset="UTF-8">
+    <meta name="Logic Sim">
+    <meta name="description" content="Simulador Logico Digital"/>
+    <meta name="author" content="Tomas Gerardi"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light only">
+    
+    <!-- Icon -->
+    <link rel="icon" type="image/x-icon" href="favicon.png">
+    
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Space Grotesk">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Space Mono">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair Display">  
+
+    <!-- Style -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Scripts -->
+    <script src="js/script.js"></script>
 </head>
 <body>
-    <div>
+    <!-- ----- PANEL ----- -->
+    <div id="panel">
+        
+        <!-- Title -->
+        <h1 id="title">
+            Simulador Logico Digital
+            <p class="version">Proyecto Final - Coderhouse</p>
+        </h1>    
+        <p class="author-smalltext">by <a class="smalltext" href="https://github.com/tgerardi" target="_blank" rel="noopener">Tomas Gerardi</a></p>
+
+        <!-- Components-->
+        <div class="section-title">
+            <h2>COMPONENTS</h2>
+        </div>
+        
+        <section class="component-library">
+            <span class="add-component"><img src="img/LIGHT.svg" alt="Light" draggable="false">LIGHT</span>
+            <span class="add-component"><img src="img/SWITCH.svg" alt="Switch" draggable="false">SWITCH</span>
+        </section>
+
+        <section class='component-library'>
+            <span class="add-component"><img src="img/AND.svg" alt="AND Gate" draggable="false">AND</span>
+            <span class="add-component"><img src="img/OR.svg" alt="OR Gate" draggable="false">OR</span>
+            <span class="add-component"><img src="img/NAND.svg" alt="NAND Gate" draggable="false">NAND</span>
+            <span class="add-component"><img src="img/NOR.svg" alt="NOR Gate" draggable="false">NOR</span>
+            <span class="add-component"><img src="img/XOR.svg" alt="XOR Gate" draggable="false">XOR</span>
+            <span class="add-component"><img src="img/XNOR.svg" alt="XNOR Gate" draggable="false">XNOR</span>
+            <span class="add-component"><img src="img/NOT.svg" alt="NOT Gate" draggable="false">NOT</span>
+        </section>
+
+        <!-- Clear -->
+        <div class="section-title"><h2>CLEAR</h2></div>
+        <button class="danger-btn" onclick="openClearingConfirmation()">Clear All</button>
+        
+        <!-- Save & Load-->
+        <div class="section-title"><h2>SAVE & LOAD</h2></div>
+        
+        <section class="save-project">
+            <input id="filename" name="filename" type="text" placeholder="Project Name">
+            <button onclick="save()"><span class="material-symbols-outlined">download</span></button>
+        </section>
+
+        <section class="load-file">
+            <label for="loadfile" id="loadfile-btn"><span class="material-symbols-outlined">upload_file</span></label>
+            <input id="loadDiagram" title="loadfile" name="loadfile" type="file" accept=".json">
+        </section>
+
+        <!-- ----- BOARD ----- -->
+        <div class="board-container">
+            <div id="board" oncontextmenu="return false">
+                <canvas id="wires"></canvas>
+
+                <div class="components"></div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
