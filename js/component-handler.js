@@ -56,10 +56,13 @@ unselectComponent.addEventListener("click", (e) => {
 })
 
 document.addEventListener("mousedown", (e) => {
+    
+    console.log("BOTON: " + e.button);
+    
     /* Dragging components */
     if (e.target.classList.contains("component")) {
         if (!e.target.classList.contains("pin")) {
-            if (e.type === "mousedown") {
+            if (e.type === "mousedown" && e.button !== 0) {
                 return;
             }
             isDragging = true;
@@ -108,18 +111,14 @@ document.addEventListener("mousemove", (e) => {
 
         if (posY > 0 && posY < boardSize) {
             draggedComponent.style.top = posY + "px";
-            if (!isNewDragging) { // TODO!! Ver por que no entra a este if, este if cumple la funcionalidad de arrastrar componentes dentro el tablero
-                console.log("enrte")
+            if (!isNewDragging)
                 diagram[draggedComponent.id].y = posY;
-            }
         }
         if (posX > 0 && posX < boardSize) {
             draggedComponent.style.left = posX + "px";
             console.log(diagram[draggedComponent.id]);
-            if (!isNewDragging) { // TODO!! Ver por que no entra a este if, este if cumple la funcionalidad de arrastrar componentes dentro el tablero
-                console.log("enrte")
+            if (!isNewDragging) 
                 diagram[draggedComponent.id].x = posX;
-            }
         }
     }
 });
@@ -158,42 +157,3 @@ document.addEventListener("mouseup", (e) => {
     draggedComponent = false;
 });
 
-/**
- * Converts the mouse coordinates to relative coordinates for a container
- * 
- * @param {number} x 
- * @param {number} y 
- * @param {HTMLElement} component
- * @returns {[Number, Number]}
- */
-function mousePositionToCoordinates(x, y, component) {
-    const container = document.getElementById("board");
-    const containerRect = container.getBoundingClientRect();
-    const componentRect = component.getBoundingClientRect();
-    const scaleX = container.offsetWidth / containerRect.width;
-    const scaleY = container.offsetHeight / containerRect.height;
-    let posX = (x - containerRect.left) * scaleX;
-    let posY = (y - containerRect.top) * scaleY;
-    posX -= (componentRect.width / 2)
-    posY -= (componentRect.height / 2)
-
-    return [posX, posY];
-}
-
-/**
- * JS and CSS of the switch (ON / OFF)
- * 
- * @param {HTMLElement} switchComponent 
- */
-function activateSwitch(switchComponent) {
-    if (switchComponent.classList.contains("on"))
-        switchComponent.classList.remove("on");
-    else
-        switchComponent.classList.add("on");
-    let activateSwitchComponent = document.getElementById("activateSwitchComponent");
-    activateSwitchComponent.classList.add("hover");
-
-    setTimeout(() => {
-        activateSwitchComponent.classList.remove("hover");
-    }, 400);
-}
