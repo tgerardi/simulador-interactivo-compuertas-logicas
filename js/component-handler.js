@@ -9,25 +9,6 @@ let draggedComponent;
 /* Selected components */
 document.addEventListener("mousedown", (e) => {
     if (e.target.classList.contains("component")) {
-        let clickedComponent = e.target;
-        if (clickedComponent.classList.contains("selected")) {
-            clickedComponent.classList.remove("selected");
-            selectedComponent = "";
-        } else {
-            let selectedComponents = document.querySelectorAll(".selected");
-            selectedComponents.forEach((selected) => {
-                selected.classList.remove("selected");
-            });
-
-            clickedComponent.classList.add("selected");
-            selectedComponent = clickedComponent;
-
-            let switchComponent = document.getElementById("activateSwitchComponent");
-            if (selectedComponent.classList.contains("switch"))
-                switchComponent.classList.remove("ignored");
-            else
-                switchComponent.classList.add("ignored");
-        }
     }
 });
 
@@ -56,9 +37,6 @@ unselectComponent.addEventListener("click", (e) => {
 })
 
 document.addEventListener("mousedown", (e) => {
-    
-    console.log("BOTON: " + e.button);
-    
     /* Dragging components */
     if (e.target.classList.contains("component")) {
         if (!e.target.classList.contains("pin")) {
@@ -75,7 +53,6 @@ document.addEventListener("mousedown", (e) => {
         if (isDragging || isNewDragging || componentDelay) return;
 
         const gate = e.target.innerText.trim();
-        // TODO!! Ver por que el BUFFER me lo trae sin imagen
         const html = localStorage.getItem(gate).replace(`id=""`, `id="component${componentCounter}"`);
 
         const componentsContainer = document.querySelector(".components");
@@ -99,6 +76,26 @@ document.addEventListener("mousedown", (e) => {
             componentDelay = false;
         }, 250);
     }
+
+    let clickedComponent = e.target;
+    if (clickedComponent.classList.contains("selected")) {
+        clickedComponent.classList.remove("selected");
+        selectedComponent = "";
+    } else {
+        let selectedComponents = document.querySelectorAll(".selected");
+        selectedComponents.forEach((selected) => {
+            selected.classList.remove("selected");
+        });
+
+        clickedComponent.classList.add("selected");
+        selectedComponent = clickedComponent;
+
+        let switchComponent = document.getElementById("activateSwitchComponent");
+        if (selectedComponent.classList.contains("switch"))
+            switchComponent.classList.remove("ignored");
+        else
+            switchComponent.classList.add("ignored");
+    }
 });
 
 document.addEventListener("mousemove", (e) => {
@@ -116,7 +113,6 @@ document.addEventListener("mousemove", (e) => {
         }
         if (posX > 0 && posX < boardSize) {
             draggedComponent.style.left = posX + "px";
-            console.log(diagram[draggedComponent.id]);
             if (!isNewDragging) 
                 diagram[draggedComponent.id].x = posX;
         }
@@ -125,7 +121,6 @@ document.addEventListener("mousemove", (e) => {
 
 document.getElementById("panel").addEventListener("mouseup", (e) => {
     if (isNewDragging) {
-        console.log("enter")
         let [x, y] = mousePositionToCoordinates(window.innerWidth / 2, window.innerHeight / 2, draggedComponent);
         let overlaping = true;
         while (overlaping) {

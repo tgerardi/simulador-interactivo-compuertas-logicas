@@ -932,6 +932,10 @@ button {
 
 /* Logic gates */
 
+.buffer::after {
+  background-image: url('../img/BUFFER.svg');
+}
+
 .not::after {
   background-image: url('../img/NOT.svg');
 }
