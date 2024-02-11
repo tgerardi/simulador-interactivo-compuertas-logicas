@@ -1,0 +1,167 @@
+{
+    "gates": [
+        {
+            "name": "AND",
+            "table": [
+                {
+                    "input_1": false,
+                    "input_2": false,
+                    "output": false
+                },
+                {
+                    "input_1": false,
+                    "input_2": true,
+                    "output": false
+                },
+                {
+                    "input_1": true,
+                    "input_2": false,
+                    "output": false
+                },
+                {
+                    "input_1": true,
+                    "input_2": true,
+                    "output": true
+                }
+            ]
+        },
+        {
+            "name": "OR",
+            "table": [
+                {
+                    "input_1": false,
+                    "input_2": false,
+                    "output": false
+                },
+                {
+                    "input_1": false,
+                    "input_2": true,
+                    "output": true
+                },
+                {
+                    "input_1": true,
+                    "input_2": false,
+                    "output": true
+                },
+                {
+                    "input_1": true,
+                    "input_2": true,
+                    "output": true
+                }
+            ]
+        },
+        {
+            "name": "NOT",
+            "table": [
+                {
+                    "input": false,
+                    "output": true
+                },
+                {
+                    "input": true,
+                    "output": false
+                }
+            ]
+        },
+        {
+            "name": "XOR",
+            "table": [
+                {
+                    "input_1": false,
+                    "input_2": false,
+                    "output": false
+                },
+                {
+                    "input_1": false,
+                    "input_2": true,
+                    "output": true
+                },
+                {
+                    "input_1": true,
+                    "input_2": false,
+                    "output": true
+                },
+                {
+                    "input_1": true,
+                    "input_2": true,
+                    "output": false
+                }
+            ]
+        },
+        {
+            "name": "NAND",
+            "table": [
+                {
+                    "input_1": false,
+                    "input_2": false,
+                    "output": true
+                },
+                {
+                    "input_1": false,
+                    "input_2": true,
+                    "output": true
+                },
+                {
+                    "input_1": true,
+                    "input_2": false,
+                    "output": true
+                },
+                {
+                    "input_1": true,
+                    "input_2": true,
+                    "output": false
+                }
+            ]
+        },
+        {
+            "name": "NOR",
+            "table": [
+                {
+                    "input_1": false,
+                    "input_2": false,
+                    "output": true
+                },
+                {
+                    "input_1": false,
+                    "input_2": true,
+                    "output": false
+                },
+                {
+                    "input_1": true,
+                    "input_2": false,
+                    "output": false
+                },
+                {
+                    "input_1": true,
+                    "input_2": true,
+                    "output": false
+                }
+            ]
+        },
+        {
+            "name": "XNOR",
+            "table": [
+                {
+                    "input_1": false,
+                    "input_2": false,
+                    "output": true
+                },
+                {
+                    "input_1": false,
+                    "input_2": true,
+                    "output": false
+                },
+                {
+                    "input_1": true,
+                    "input_2": false,
+                    "output": false
+                },
+                {
+                    "input_1": true,
+                    "input_2": true,
+                    "output": true
+                }
+            ]
+        }
+    ]
+}
