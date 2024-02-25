@@ -5,12 +5,7 @@ let componentDelay = false;
 let isNewDragging = false;
 let selectedComponent = "";
 let draggedComponent;
-
-/* Selected components */
-document.addEventListener("mousedown", (e) => {
-    if (e.target.classList.contains("component")) {
-    }
-});
+let hover = "";
 
 /* Switch Activation */
 let activateSwitchComponent = document.getElementById("activateSwitchComponent");
@@ -24,7 +19,17 @@ document.addEventListener("dblclick", (e) => {
             activateSwitch(e.target)
         }
     }
-})
+});
+
+/* Preventing the switch to turn off if the pin has been clicked */
+document.addEventListener("contextmenu", (e) => {
+    if(e.target.classList.contains("switch")) {
+        if(!e.target.classList.contains("pin")) {
+            e.preventDefault();
+            activateSwitch(e.target);
+        }
+    }
+});
 
 /* Unselect components */
 let unselectComponent = document.getElementById("board");
@@ -152,3 +157,13 @@ document.addEventListener("mouseup", (e) => {
     draggedComponent = false;
 });
 
+
+// TODO!! Ver por que el id de selectedComponent es undefined
+function deleteComponent() {
+    let id;
+    console.log("selected component", selectedComponent)
+    id = selectedComponent.id;
+    delete diagram[id];
+    document.getElementById(id).remove()
+    setDiagram();
+}

@@ -20,28 +20,29 @@ function setDiagram() {
             type: type,
             x: x,
             y: y,
-            rotation: 0,
             inputs: {},
             outputs: {}
         };
 
         // For each output pin
         let outputPins = component.querySelector(".out-pins");
+        console.log("seteo outputs", outputPins);
         if (outputPins) {
             let pins = outputPins.querySelectorAll(".pin");
             pins.forEach((pin) => {
-                let name = pin.classList[1];
-                diagram[id].outputs[name] = { state: 0, to: []}
+                const name = pin.classList[1];
+                diagram[id].outputs[name] = { state: 0, to: [] }
             });
         }
 
         // For each input pin
         let inputPins = component.querySelector(".in-pins");
+        console.log("seteo inputs", inputPins)
         if (inputPins) {
             let pins = inputPins.querySelectorAll(".pin");
             pins.forEach((pin) => {
-                let name = pin.classList[1];
-                diagram[id].inputs[name] = { state: 0, from: []}
+                const name = pin.classList[1];
+                diagram[id].inputs[name] = { state: 0, from: [] }
             });
         }
     });

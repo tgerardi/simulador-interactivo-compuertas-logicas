@@ -10,15 +10,7 @@
 > No se utilizó ningun Framework hasta el momento para estilos, ya que no es lo mio y tampoco es de mi interes aprender.
 > Lo que se evalúa en este proyecto es el desarrollo en JavaScript.
 
-## Funcionalidades a desarrollar
-* Arrastrado de componentes
-* Conexion de componentes
-* Vaciado de tablero
-* Seleccionar para eliminar
-* Validaciones sobre las conexiones posibles
-* Operaciones entre varios terminos
-
-## Técnologías usadas (por el momento)
+## Técnologías usadas
 * JavaScript
 * HTML
 * CSS
@@ -53,3 +45,11 @@
 > - [x] DOM
 > - [x] Eventos
 > - [x] JSON y Storage
+
+## **Entrega Final**
+### 24 de febrero del 2024
+
+> El objetivo de esta entrega es desarrolllar e incluir:
+> - [x] Lo visto hasta el momento
+> - [x] Al menos 1 libreria
+> - [x] Ajax & Fetch
