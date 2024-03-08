@@ -26,7 +26,6 @@ function setDiagram() {
 
         // For each output pin
         let outputPins = component.querySelector(".out-pins");
-        console.log("seteo outputs", outputPins);
         if (outputPins) {
             let pins = outputPins.querySelectorAll(".pin");
             pins.forEach((pin) => {
@@ -37,7 +36,6 @@ function setDiagram() {
 
         // For each input pin
         let inputPins = component.querySelector(".in-pins");
-        console.log("seteo inputs", inputPins)
         if (inputPins) {
             let pins = inputPins.querySelectorAll(".pin");
             pins.forEach((pin) => {

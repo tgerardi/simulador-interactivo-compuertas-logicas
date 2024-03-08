@@ -15,131 +15,115 @@ let wireCoords = {
     y: 0
 };
 
-document.addEventListener("mousedown", (e) => {
-    if (!isWired && e.target.classList.contains("pin")) {
-        startPin = e.target.className.split(' ')[1];
-        startComponent = e.target.parentElement.parentElement.id;
+$(document).on("mousedown", ".out-pins", function (e) {
+    if (!isWired && $(e.target).hasClass("pin")) {
+        startPin = $(e.target).attr("class").split(' ')[1];
+        startComponent = $(e.target).parent().parent().attr("id");
         isWired = true;
         wireCoords.x = e.pageX;
         wireCoords.y = e.pageY;
     }
 });
 
-document.addEventListener("mousemove", (e) => {
+$(document).mousemove(function (e) {
     if (isWired) {
         wireCoords.x = e.pageX;
         wireCoords.y = e.pageY;
     }
 });
 
-document.addEventListener("click", (e) => {
-    if (isWired && !e.target.classList.contains("pin"))
-        isWired = false;
-    
-    //if (e.target.classList.contains("in-pins"))
-        handleWiringComponentsEvent(e);
+$(document).on("click", function (e) {
+    if (isWired && !$(e.target).hasClass("pin")) isWired = false;
 });
 
-document.addEventListener("mouseup", (e) => {
-    console.log(e.target.classList)
-    //if (e.target.classList.contains("in-pins"))
+$(document).on("mouseup click", ".in-pins", function (e) {
+    if (isWired && $(e.target).hasClass("pin"))
         handleWiringComponentsEvent(e);
 });
 
 function handleWiringComponentsEvent(e) {
-    if (isWired && e.target.classList.contains("pin")) {
-        endPin = e.target.className.split(' ')[1];
-        endComponent = e.target.parentElement.parentElement.id;
+    endPin = $(e.target).attr("class").split(' ')[1];
+    endComponent = $(e.target).parent().parent().attr("id");
 
-        console.log(startComponent);
-        console.log(endComponent);
+    const arrayToOutput = diagram[startComponent].outputs[startPin].to;
+    const arrayFromInput = diagram[endComponent].inputs[endPin].from;
+    const connectionToOutput = {
+        component: endComponent,
+        pin: endPin
+    };
+    const connectionFromOutput = {
+        component: startComponent,
+        pin: startPin
+    };
+    const exists = arrayToOutput.find(obj => obj.component === connectionToOutput.component && obj.pin === connectionToOutput) !== undefined;
 
-        console.log(diagram[endComponent].outputs[startPin])
-        console.log(diagram[endComponent].inputs[endPin])
+    if (exists) return;
 
-        const arrayToOutput = diagram[startComponent].outputs[startPin].to;
-        const arrayFromInput = diagram[endComponent].inputs[endPin].from;
-        const connectionToOutput = {
-            component: endComponent,
-            pin: endPin
-        };
-        const connectionFromOutput = {
-            component: startComponent,
-            pin: startPin
-        };
-        const exists = arrayToOutput.find(obj => obj.component === connectionToOutput.component && obj.pin === connectionToOutput) !== undefined;
-        
-        if (exists) return;
-
-        arrayToOutput.push(connectionToOutput);
-        arrayFromInput.push(connectionFromOutput);
-        isWired = false;
-    }
+    arrayToOutput.push(connectionToOutput);
+    arrayFromInput.push(connectionFromOutput);
+    isWired = false;
 }
 
 function draw() {
-    paper.width = document.getElementById("wires").offsetWidth;
-    paper.height = document.getElementById("wires").offsetHeight;
+    paper.width = $('#wires').outerWidth();
+    paper.height = $('#wires').outerHeight();
     pen.lineWidth = 4;
     pen.clearRect(0, 0, paper.width, paper.height);
 
+
     if (isWired) {
-        const container = document.getElementById("board");
+        const container = document.getElementById('board');
         const containerRect = container.getBoundingClientRect();
 
         const scaleX = container.offsetWidth / containerRect.width;
         const scaleY = container.offsetHeight / containerRect.height;
 
-        const endCoords = {
+        const end = {
             x: (wireCoords.x - containerRect.left) * scaleX,
             y: (wireCoords.y - containerRect.top) * scaleY
-        }
+        };
 
-        let cmpStartPin = document.getElementById(startComponent).querySelector("."+startPin);
-        const startCoords = getPinCoord(cmpStartPin);
+        const wireStartCoords = getPinCoord($(`#${startComponent}`).find(`.${startPin}`));
 
         pen.strokeStyle = wireActive;
         pen.beginPath();
-        pen.moveTo(startCoords.x, startCoords.y);
-        pen.lineTo(endCoords.x, startCoords.y);
+        pen.moveTo(wireStartCoords.x, wireStartCoords.y);
+        pen.lineTo(end.x, end.y);
         pen.stroke();
     }
 
     for (const component in diagram) {
         for (const output in diagram[component].outputs) {
-            let outputCmp = document.getElementById(component).querySelector("."+output);
-            const startCoords = getPinCoord(outputCmp);
+            const start = getPinCoord($(`#${component}`).find(`.${output}`));
             const { state } = diagram[component].outputs[output];
+            
+            console.log("STATE", state);
 
-            if (state === 1)
+            if (state == 1) {
                 pen.strokeStyle = wireColorOn;
-            else
+            } else {
                 pen.strokeStyle = wireColorOff;
+            }
 
-                for (const input of diagram[component].outputs[output].to) {
-                    if (document.getElementById(input.component).length) {
-                        let inpCmp = document.getElementById(input.component).querySelector("."+input.pin);
-                        console.log("ENTRE ACA", inpCmp);
-                        const endCoords = getPinCoord(document.getElementById(input.component).querySelector("."+input.pin));
-
-                        pen.beginPath();
-                        pen.moveTo(startCoords.x, startCoords.y);
-                        if (endCoords.x > startCoords.x) {
-                          pen.lineTo(endCoords.x - (Math.abs(startCoords.x - endCoords.x) / 2), startCoords.y);
-                          pen.lineTo(endCoords.x - (Math.abs(startCoords.x - endCoords.x) / 2), endCoords.y);
-                        } else {
-                          pen.lineTo(startCoords.x, endCoords.y - (Math.abs(startCoords.y - endCoords.y) / 2));
-                          pen.lineTo(endCoords.x, endCoords.y - (Math.abs(startCoords.y - endCoords.y) / 2));
-                        }
-                        pen.lineTo(endCoords.x, endCoords.y);
-                        pen.stroke();
+            for (const input of diagram[component].outputs[output].to) {
+                if ($(`#${input.component}`).length) {
+                    const end = getPinCoord($(`#${input.component}`).find(`.${input.pin}`));
+                    pen.beginPath();
+                    pen.moveTo(start.x, start.y);
+                    if (end.x > start.x) {
+                        pen.lineTo(end.x - (Math.abs(start.x - end.x) / 2), start.y);
+                        pen.lineTo(end.x - (Math.abs(start.x - end.x) / 2), end.y);
+                    } else {
+                        pen.lineTo(start.x, end.y - (Math.abs(start.y - end.y) / 2));
+                        pen.lineTo(end.x, end.y - (Math.abs(start.y - end.y) / 2));
                     }
+                    pen.lineTo(end.x, end.y);
+                    pen.stroke();
                 }
+            }
         }
     }
-
     requestAnimationFrame(draw);
 }
-
 
 draw();

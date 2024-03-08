@@ -68,13 +68,13 @@ function getPinCoord(pin) {
     const scaleX = container.offsetWidth / containerRect.width;
     const scaleY = container.offsetHeight / containerRect.height;
 
-    offset = getOffset(pin);
+    offset = pin.offset();
     const posX = (offset.left - containerRect.left) * scaleX;
     const posY = (offset.top - containerRect.top) * scaleY;
 
     return {
-        x: posX + pin.offsetWidth / 2,
-        y: posY + pin.offsetHeight / 2
-    }
+        x: posX + pin.width() / 2,
+        y: posY + pin.height() / 2
+    };
 }
 
