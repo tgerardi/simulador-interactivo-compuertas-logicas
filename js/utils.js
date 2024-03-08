@@ -21,24 +21,6 @@ function mousePositionToCoordinates(x, y, component) {
 }
 
 /**
- * ON and OFF of the Switch Element
- * 
- * @param {HTMLElement} switchComponent 
- */
-function activateSwitch(switchComponent) {
-    if (switchComponent.classList.contains("on"))
-        switchComponent.classList.remove("on");
-    else
-        switchComponent.classList.add("on");
-    let activateSwitchComponent = document.getElementById("activateSwitchComponent");
-    activateSwitchComponent.classList.add("hover");
-
-    setTimeout(() => {
-        activateSwitchComponent.classList.remove("hover");
-    }, 400);
-}
-
-/**
  * Get the offset of the element
  *  
  * @param {HTMLElemnt} element 

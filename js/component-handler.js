@@ -8,39 +8,48 @@ let draggedComponent;
 let hover = "";
 
 /* Switch Activation */
-let activateSwitchComponent = document.getElementById("activateSwitchComponent");
-activateSwitchComponent.addEventListener("click", (e) => {
+$("#activateSwitchComponent").click( (e) => {
     activateSwitch(selectedComponent);
 });
 
-document.addEventListener("dblclick", (e) => {
-    if (e.target.classList.contains("component")) {
-        if (!e.target.classList.contains("pin") && e.target.classList.contains("switch")) {
-            activateSwitch(e.target)
-        }
-    }
+$(document).dblclick(".component", (e) => {
+    if (!$(e.target).hasClass("pin") && $(e.target).hasClass("switch"))
+        activateSwitch($(e.target));
 });
 
 /* Preventing the switch to turn off if the pin has been clicked */
-document.addEventListener("contextmenu", (e) => {
-    if(e.target.classList.contains("switch")) {
-        if(!e.target.classList.contains("pin")) {
-            e.preventDefault();
-            activateSwitch(e.target);
+$(document).on("contextmenu", ".switch", (e) => {
+    if(!$(e.target).hasClass("pin"))
+        activateSwitch($(this));
+});
+
+/* Unselect components */
+$("#board").on("click", (e) => {
+    if (selectedComponent !== "" && selectedComponent.attr("id") !== $(e.target).attr("id")) {
+        $(".selected").removeClass("selected");
+        selectedComponent = "";
+    }
+});
+
+/* Select component */
+$(document).on("mousedown", ".component", (e) => {
+    if (e.button === 0) {
+        if ($(this).hasClass("selected")) {
+            $(".selected").removeClass("selected");
+            selectedComponent = "";
+        } else {
+            $(".selected").removeClass("selected");
+            $(this).addClass("selected");
+            selectedComponent = $(this);
+            if (selectedComponent.hasClass("switch"))
+                $("#activateSwitchComponent").removeClass("ignored");
+            else
+                $("#activateSwitchComponent").addClass("ignored");
         }
     }
 });
 
-/* Unselect components */
-let unselectComponent = document.getElementById("board");
-unselectComponent.addEventListener("click", (e) => {
-    if (selectedComponent !== "" && selectedComponent.id !== e.target.id) {
-        let selected = document.getElementsByClassName("selected")[0];
-        selected.classList.remove("selected");
-        selectedComponent = "";
-    }
-})
-
+/* Dragging Logic */
 document.addEventListener("mousedown", (e) => {
     /* Dragging components */
     if (e.target.classList.contains("component")) {
@@ -81,28 +90,9 @@ document.addEventListener("mousedown", (e) => {
             componentDelay = false;
         }, 250);
     }
-
-    let clickedComponent = e.target;
-    if (clickedComponent.classList.contains("selected")) {
-        clickedComponent.classList.remove("selected");
-        selectedComponent = "";
-    } else {
-        let selectedComponents = document.querySelectorAll(".selected");
-        selectedComponents.forEach((selected) => {
-            selected.classList.remove("selected");
-        });
-
-        clickedComponent.classList.add("selected");
-        selectedComponent = clickedComponent;
-
-        let switchComponent = document.getElementById("activateSwitchComponent");
-        if (selectedComponent.classList.contains("switch"))
-            switchComponent.classList.remove("ignored");
-        else
-            switchComponent.classList.add("ignored");
-    }
 });
 
+/* Components movements */
 document.addEventListener("mousemove", (e) => {
     if (isDragging || isNewDragging) {
         let x, y;
@@ -157,6 +147,14 @@ document.addEventListener("mouseup", (e) => {
     draggedComponent = false;
 });
 
+/* Switch hover */
+$(document).on('mouseover', '.switch', () => {
+    hover = $(this);
+});
+
+$(document).on('mouseout', '.switch', () => {
+    hover = '';
+});
 
 // TODO!! Ver por que el id de selectedComponent es undefined
 function deleteComponent() {

@@ -55,7 +55,7 @@ function handleWiringComponentsEvent(e) {
         component: startComponent,
         pin: startPin
     };
-    const exists = arrayToOutput.find(obj => obj.component === connectionToOutput.component && obj.pin === connectionToOutput) !== undefined;
+    const exists = arrayToOutput.find(obj => obj.component === connectionToOutput.component && obj.pin === connectionToOutput.pin) !== undefined;
 
     if (exists) return;
 
@@ -97,7 +97,7 @@ function draw() {
             const start = getPinCoord($(`#${component}`).find(`.${output}`));
             const { state } = diagram[component].outputs[output];
             
-            console.log("STATE", state);
+            //console.log("STATE", diagram[component].outputs[output]);
 
             if (state == 1) {
                 pen.strokeStyle = wireColorOn;
